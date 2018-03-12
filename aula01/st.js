@@ -1,17 +1,16 @@
 /* jshint esversion: 6 */
-const http = require('http');
+const express = require('express');
+const circulo = require('./circle');
+app = express();
 
-const hostname = '127.0.0.1';
-const port = 3001;
+app.use('/static', express.static(__dirname + '/public'));
 
-const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/html; charset=utf8');
-    res.write('Nome: Fábio<br>');
-    res.write('Nascimento: 05-10-1983<br>');
-    res.end('E-mail: fabio@tramasoli.com<br>');
+app.get(/^\/circle\/area\/(\d+)$/, function(req, res) {
+    res.status(200).send({
+        response: circulo.area(req.params[0])
+    });
 });
 
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-});
+console.log(__dirname);
+
+app.listen(8080);

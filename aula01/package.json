@@ -1,0 +1,25 @@
+{
+  "name": "aula01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "st.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fábio Tramasoli <fabio@tramasoli.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.17.1"
+  },
+  "jshintConfig": {
+    "undef": true,
+    "unused": true,
+    "globals": {
+      "MY_GLOBAL": true
+    },
+    "esversion": 6
+  },
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}

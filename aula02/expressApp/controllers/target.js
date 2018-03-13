@@ -1,18 +1,40 @@
 /* jshint esversion: 6 */
-const target_data = require('../data/target-data.json');
+var fs = require('fs');
+const target_data_filename = __dirname+'/../data/target-data.json';
+const target_data = require(target_data_filename);
 
-exports.get = function() {
+function saveData() {
+    fs.writeFile(target_data_filename, JSON.stringify(target_data), 'utf8', function (err) {
+        console.error(err);
+    });
+}
+
+exports.get = function(id) {
+    if (!!id) {
+        if (id in target_data) {
+            return target_data[id];
+        }
+        return {};
+    }
     return target_data;
 };
-exports.put = function() {
+exports.put = function(data) {
     console.log("PUT");
-    return 'Not implemented';
+    target_data.push(data);
+    saveData();
+    return data;
 };
-exports.post = function() {
-    console.log("POST");
-    return 'Not implemented';
+exports.post = function(data) {
+    target_data.push(data);
+    saveData();
+    return data;
 };
-exports.delete = function() {
-    console.log("DELETE");
-    return 'Not implemented';
+exports.delete = function(id) {
+    if (!!id && id in target_data) {
+        let excluido = target_data[id];
+        delete target_data[id];
+        saveData();
+        return excluido;
+    }
+    return {};
 };
